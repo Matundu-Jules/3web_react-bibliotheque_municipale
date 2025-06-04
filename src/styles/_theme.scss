@@ -1,0 +1,28 @@
+// ./src/styles/_theme.scss
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-main, Arial, sans-serif);
+  transition:
+    background var(--transition-base, 0.28s),
+    color var(--transition-base, 0.28s);
+}
+
+// Exemple d’élément principal (container, modals, cards…)
+.main-container,
+.card,
+.modal {
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-xs);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+  transition: background var(--transition-fast, 0.15s);
+}
+
+// Pour les overlays (modals, dialogs)
+.overlay {
+  background: rgba(34, 80, 179, 0.08);
+  backdrop-filter: blur(1.5px);
+}

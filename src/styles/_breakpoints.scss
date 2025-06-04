@@ -1,0 +1,30 @@
+// src/styles/_breakpoints.scss
+
+// Breakpoints map
+$breakpoints: (
+  xxs: 360px,
+  // Very small phones (optionnel)
+  xs: 480px,
+  // Phones
+  sm: 768px,
+  // Tablets
+  md: 1024px,
+  // Small desktops
+  lg: 1200px,
+  // Large desktops
+  xl: 1440px, // Extra large screens
+);
+
+// Sass 'map' module import
+@use "sass:map";
+
+// Media query mixin usage: @include mediaquery(sm) { ... }
+@mixin mediaquery($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map.get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint '#{$breakpoint}' not found in the breakpoints map.";
+  }
+}
