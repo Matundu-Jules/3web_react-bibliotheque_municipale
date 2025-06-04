@@ -1,19 +1,14 @@
-// ./App.tsx
+// src/App.tsx
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import AppRouter from "./router";
+import { SearchProvider } from "./contexts/SearchContext";
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <main>
-        <Routes>{/* <Route path="/" element={<HomePage />} /> */}</Routes>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <SearchProvider>
+      <AppRouter />
+    </SearchProvider>
   );
-}
+};
 
 export default App;
