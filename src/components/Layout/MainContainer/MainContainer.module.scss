@@ -1,11 +1,12 @@
 // ./src/components/Layout/MainContainer/MainContainer.module.scss
 
 .main {
-  flex: 1;
-  padding: 1rem;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
   min-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

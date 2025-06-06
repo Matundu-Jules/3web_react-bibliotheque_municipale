@@ -1,0 +1,16 @@
+// src/components/Search/AdvancedSearchResults/AdvancedSearchResults.module.scss
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-l);
+  margin-top: var(--spacing-xl);
+  padding: 0 var(--spacing-m);
+}
+
+.empty {
+  text-align: center;
+  font-size: var(--font-size-m);
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xl);
+}

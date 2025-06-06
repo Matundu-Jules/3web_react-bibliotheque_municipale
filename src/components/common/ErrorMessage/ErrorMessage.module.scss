@@ -1,0 +1,11 @@
+// src/components/common/ErrorMessage/ErrorMessage.module.scss
+
+.error {
+  background-color: var(--color-error);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-s) var(--spacing-m);
+  border-radius: var(--radius-s);
+  text-align: center;
+  font-weight: 500;
+  margin-top: var(--spacing-l);
+}

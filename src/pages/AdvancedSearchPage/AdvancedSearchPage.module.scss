@@ -1,0 +1,36 @@
+// src/pages/AdvancedSearchPage/AdvancedSearchPage.module.scss
+
+.advanced-search-page {
+  width: 100%;
+  padding: 3rem;
+  background-color: var(--color-surface);
+  min-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-l);
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.load-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-l);
+}
+
+.load-more-button {
+  padding: var(--spacing-s) var(--spacing-l);
+  font-size: var(--font-size-m);
+  background-color: var(--color-secondary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+
+  &:hover {
+    background-color: var(--color-warning);
+  }
+}

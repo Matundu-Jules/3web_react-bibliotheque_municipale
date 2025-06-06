@@ -1,0 +1,39 @@
+// src/components/Book/BookCard/BookCard.module.scss
+
+.book-card {
+  background-color: var(--color-bg-alt);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.cover {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.info {
+  padding: var(--spacing-m);
+}
+
+.title {
+  font-size: var(--font-size-m);
+  font-weight: bold;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.author,
+.year {
+  font-size: var(--font-size-s);
+  color: var(--color-text-light);
+}
