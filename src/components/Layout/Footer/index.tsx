@@ -1,13 +1,17 @@
 // ./src/components/Layout/Footer/Footer.tsx
 
+import React from "react";
 import styles from "./Footer.module.scss";
 
-function Footer() {
+const Footer: React.FC = () => {
   return (
     <footer className={styles["footer"]}>
-      © {new Date().getFullYear()} Bibliothèque Municipale
+      <p>
+        © {new Date().getFullYear()} Bibliothèque Municipale. Tous droits
+        réservés.
+      </p>
     </footer>
   );
-}
+};
 
 export default Footer;

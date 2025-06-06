@@ -2,8 +2,8 @@
 
 :root {
   // Palette principale
-  --color-primary: #2250b3; // Bleu principal
-  --color-secondary: #ff9800; // Orange accent
+  --color-primary: #133a57; // Bleu principal
+  --color-secondary: #de8d3d; // Orange accent
   --color-success: #43b581; // Vert succès
   --color-error: #e53935; // Rouge erreur
   --color-warning: #ffa726; // Orange clair
@@ -23,14 +23,18 @@
   --color-active: #183366;
   --color-focus: #3b82f6;
 
+  // Taille header et footer
+  --header-height: 8rem; // Hauteur du header
+  --footer-height: 8rem; // Hauteur du footer
+
   // Typographie
   --font-main: "Inter", Arial, sans-serif;
-  --font-size-xs: 0.82rem;
-  --font-size-s: 0.95rem;
-  --font-size-m: 1.08rem;
-  --font-size-l: 1.2rem;
-  --font-size-xl: 1.6rem;
-  --font-size-xxl: 2.3rem;
+  --font-size-xs: 0.8rem;
+  --font-size-s: 0.9rem;
+  --font-size-m: 1.2rem;
+  --font-size-l: 1.4rem;
+  --font-size-xl: 1.8rem;
+  --font-size-xxl: 2.2rem;
 
   // Espacement
   --spacing-xs: 0.35rem;
@@ -42,8 +46,8 @@
   // Radius
   --radius-xs: 0.25rem;
   --radius-s: 0.5rem;
-  --radius-m: 0.8rem;
-  --radius-l: 1.3rem;
+  --radius-m: 1rem;
+  --radius-l: 1.2rem;
 
   // Ombres
   --shadow-xs: 0 1px 3px 0 rgba(34, 80, 179, 0.07);
@@ -55,17 +59,3 @@
   --transition-base: 0.28s;
   --transition-slow: 0.45s;
 }
-
-// Mixins pour accès rapide (optionnel)
-// @mixin card {
-//   background: var(--color-bg-alt);
-//   border-radius: var(--radius-m);
-//   box-shadow: var(--shadow-xs);
-//   border: 1px solid var(--color-border);
-// }
-
-// @mixin text-ellipsis {
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-//   white-space: nowrap;
-// }
