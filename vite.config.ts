@@ -28,5 +28,12 @@ export default defineConfig({
   },
   server: {
     open: true,
+    proxy: {
+      '/api': {
+        target: 'https://openlibrary.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });

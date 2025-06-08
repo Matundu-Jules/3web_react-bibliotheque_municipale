@@ -1,0 +1,50 @@
+// src/components/Book/RecentChangesList/RecentChangesList.module.scss
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-l) 0;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+  padding: var(--spacing-s);
+  background-color: var(--color-bg-alt);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow-xs);
+
+  &:hover {
+    background-color: var(--color-surface);
+  }
+}
+
+.icon {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-top: 2px;
+}
+
+.text {
+  flex: 1;
+  color: var(--color-text-main);
+  font-size: var(--font-size-s);
+}
+
+.meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-hover);
+    text-decoration: underline;
+  }
+}

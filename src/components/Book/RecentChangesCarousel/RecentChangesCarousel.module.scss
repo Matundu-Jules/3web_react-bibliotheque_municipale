@@ -1,0 +1,181 @@
+// src/components/Book/RecentChangesCarousel/RecentChangesCarousel.module.scss
+
+@use "@styles/_breakpoints.scss" as *;
+
+.carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: var(--spacing-l) 0 var(--spacing-xl) 0;
+  overflow-x: auto;
+  position: relative;
+}
+
+.nav {
+  width: 5rem;
+  margin: 0 2rem;
+  display: inline-flex;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-s);
+  color: var(--color-text-main);
+  transition: color var(--transition-fast);
+  z-index: 2;
+  align-self: center;
+  border-radius: var(--radius-m);
+
+  &:focus {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  &:hover {
+    color: var(--color-primary);
+    background: var(--color-bg-alt);
+  }
+}
+
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--spacing-xs);
+
+  @include mediaquery(sm) {
+    gap: var(--spacing-l);
+    width: auto;
+  }
+
+  @include mediaquery(md) {
+    gap: var(--spacing-xl);
+  }
+}
+
+.book {
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-m);
+  padding: var(--spacing-m) var(--spacing-s);
+  box-shadow: var(--shadow-xs);
+  min-width: 210px;
+  max-width: 220px;
+  height: 340px; // Ajuste selon tes besoins (desktop/tablette)
+  min-height: 340px;
+  max-height: 340px;
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+  cursor: pointer;
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    z-index: 2;
+  }
+  &:hover {
+    box-shadow: var(--shadow-s);
+    transform: translateY(-3px) scale(1.025);
+  }
+
+  @include mediaquery(sm) {
+    min-width: 220px;
+    max-width: 250px;
+    flex: 0 0 220px;
+    padding: var(--spacing-m) var(--spacing-m);
+    margin: 0;
+  }
+
+  @include mediaquery(md) {
+    min-width: 250px;
+    max-width: 270px;
+    flex: 0 0 250px;
+    padding: var(--spacing-l) var(--spacing-l);
+  }
+}
+
+.cover {
+  width: 140px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow-xs);
+  margin-bottom: var(--spacing-m);
+  background: #eee;
+  display: block;
+
+  @include mediaquery(sm) {
+    width: 140px;
+    height: 200px;
+    margin-bottom: var(--spacing-s);
+  }
+
+  @include mediaquery(md) {
+    width: 160px;
+    height: 220px;
+  }
+}
+
+.title {
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  margin: var(--spacing-xs) 0 var(--spacing-xs) 0;
+  color: var(--color-text-main);
+  text-align: center;
+  min-height: 2.2em; // hauteur de 2 lignes min pour garder l'espacement régulier
+  max-height: 2.2em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; // Limite à 2 lignes
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.author {
+  font-size: var(--font-size-s);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xs);
+  text-align: center;
+  min-height: 1.1em;
+  word-break: break-word;
+}
+
+.meta {
+  font-size: var(--font-size-xs);
+  color: #888;
+  text-align: center;
+  margin-top: var(--spacing-xs);
+}
+
+// --- TABLETTES & + ---
+@include mediaquery(sm) {
+  .slider {
+    gap: var(--spacing-l);
+    width: auto;
+  }
+
+  .book {
+    min-width: 220px;
+    max-width: 250px;
+    flex: 0 0 220px;
+    padding: var(--spacing-m) var(--spacing-m);
+    margin: 0;
+  }
+  .cover {
+    width: 140px;
+    height: 200px;
+    margin-bottom: var(--spacing-s);
+  }
+}

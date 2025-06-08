@@ -4,7 +4,11 @@ export interface OpenLibraryBook {
   key: string;
   title: string;
   author_name?: string[];
+  first_publish_year?: string;
   cover_i?: number;
-  first_publish_year?: number;
-  [key: string]: any; // pour éviter les erreurs si des props inattendues arrivent
+
+  // ✅ Champs spécifiques aux changements récents
+  kind?: string;
+  comment?: string;
+  timestamp?: string;
 }

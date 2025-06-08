@@ -1,12 +1,20 @@
 // ./src/components/Layout/MainContainer/MainContainer.module.scss
 
+@use "@styles/_breakpoints.scss" as *;
+
 .main {
   width: 100%;
+  min-height: calc(
+    100vh - (var(--header-mobile-height) + var(--footer-height))
+  );
   margin: 0 auto;
   box-sizing: border-box;
-  min-height: calc(100vh - (var(--header-height) + var(--footer-height)));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @include mediaquery(sm) {
+    min-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+  }
 }
