@@ -3,20 +3,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import type { RecentChange } from "../../../types/search";
 import styles from "./RecentChangesCarousel.module.scss";
 
-interface BookChange {
-  key: string;
-  title: string;
-  author_name: string;
-  kind?: string;
-  comment?: string;
-  timestamp?: string;
-  cover_i?: number;
-}
-
 interface Props {
-  changes: BookChange[];
+  changes: RecentChange[];
 }
 
 const RecentChangesCarousel: React.FC<Props> = ({ changes }) => {

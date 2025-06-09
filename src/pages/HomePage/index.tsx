@@ -1,7 +1,7 @@
 // src/pages/HomePage/index.tsx
 
 import React, { useEffect, useState } from "react";
-import { useRecentChanges } from "@hooks/useBooks";
+import { useRecentChanges } from "@hooks/useRecentChanges";
 import RecentChangesCarousel from "@components/Book/RecentChangesCarousel";
 import RecentChangesList from "@components/Book/RecentChangesList";
 import Loader from "@components/common/Loader";

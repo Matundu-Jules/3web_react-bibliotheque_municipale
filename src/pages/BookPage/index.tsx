@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useBookDetails } from "@hooks/useBooks";
+import { useBookDetails } from "@hooks/useBookDetails";
 import { useWikipedia } from "@hooks/useWikipedia";
 import BookDetails from "@components/Book/BookDetails";
 import Loader from "@components/common/Loader";

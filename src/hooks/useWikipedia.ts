@@ -1,11 +1,8 @@
 // src/hooks/useWikipedia.ts
 
 import { useState, useEffect } from 'react';
-import type { WikipediaEnrichment } from '../types/wikipedia';
-
-export interface WikipediaEnrichmentWithLoading extends WikipediaEnrichment {
-  loading: boolean;
-}
+import { wikipediaService } from '@services/wikipediaService';
+import type { WikipediaEnrichmentWithLoading } from '../types/wikipedia';
 
 export function useWikipedia(title?: string): WikipediaEnrichmentWithLoading {
   const [state, setState] = useState<WikipediaEnrichmentWithLoading>({
@@ -17,13 +14,12 @@ export function useWikipedia(title?: string): WikipediaEnrichmentWithLoading {
       setState({ loading: false, error: 'No title provided for Wikipedia.' });
       return;
     }
-    setState({ loading: true });
-    const formatted = encodeURIComponent(title.trim());
 
-    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${formatted}`)
-      .then(async (res) => {
-        if (!res.ok) throw new Error('No Wikipedia summary found.');
-        const json = await res.json();
+    setState({ loading: true });
+
+    wikipediaService
+      .fetchSummary(title)
+      .then((json) => {
         setState({
           summary: json.extract || undefined,
           image:

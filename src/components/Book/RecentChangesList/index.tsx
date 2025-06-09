@@ -3,16 +3,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./RecentChangesList.module.scss";
-
-interface RecentChange {
-  key: string;
-  title: string;
-  author_name: string;
-  kind?: string;
-  comment?: string;
-  timestamp?: string;
-  cover_i?: number;
-}
+import type { RecentChange } from "../../../types/search";
 
 interface Props {
   changes: RecentChange[];

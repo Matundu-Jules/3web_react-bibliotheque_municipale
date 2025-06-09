@@ -2,7 +2,7 @@
 
 import React from "react";
 import type { OpenLibraryBook } from "../../../types/book";
-import type { WikipediaEnrichmentWithLoading } from "@hooks/useWikipedia";
+import type { WikipediaEnrichmentWithLoading } from "../../../types/wikipedia";
 import Loader from "@components/common/Loader";
 import ErrorMessage from "@components/common/ErrorMessage";
 import { cleanDescription } from "@utils/formatters";

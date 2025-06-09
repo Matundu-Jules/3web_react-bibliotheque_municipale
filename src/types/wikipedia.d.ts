@@ -6,3 +6,7 @@ export interface WikipediaEnrichment {
   url?: string;
   error?: string; // Pour propager une erreur éventuelle de fetch Wikipedia
 }
+
+export interface WikipediaEnrichmentWithLoading extends WikipediaEnrichment {
+  loading: boolean;
+}

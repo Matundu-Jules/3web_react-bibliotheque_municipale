@@ -4,32 +4,27 @@ import styles from "./AdvancedSearchPage.module.scss";
 import AdvancedSearchForm from "@components/Search/AdvancedSearchForm";
 import AdvancedSearchResults from "@components/Search/AdvancedSearchResults";
 import type { OpenLibraryBook } from "../../types/book";
-import { searchBooksAdvanced } from "@hooks/useBooks";
+import type { AdvancedSearchParams } from "../../types/search";
+import { openLibraryService } from "@services/openLibraryService";
 
 const AdvancedSearchPage: React.FC = () => {
   const [books, setBooks] = useState<OpenLibraryBook[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [lastParams, setLastParams] = useState<{
-    author: string;
-    year: string;
-    subject: string;
-  } | null>(null);
+  const [lastParams, setLastParams] = useState<AdvancedSearchParams | null>(
+    null,
+  );
 
-  const handleSearch = async (params: {
-    author: string;
-    year: string;
-    subject: string;
-  }) => {
+  const handleSearch = async (params: AdvancedSearchParams) => {
     setLoading(true);
     setError(null);
     setCurrentPage(1);
     setLastParams(params);
 
     try {
-      const results = await searchBooksAdvanced(params, 1);
-      setBooks(results);
+      const { docs } = await openLibraryService.searchBooksAdvanced(params, 1);
+      setBooks(docs);
     } catch (err) {
       setError("Something went wrong while fetching data.");
     } finally {
@@ -44,7 +39,8 @@ const AdvancedSearchPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const moreResults = await searchBooksAdvanced(lastParams, nextPage);
+      const { docs: moreResults } =
+        await openLibraryService.searchBooksAdvanced(lastParams, nextPage);
       setBooks((prev) => [...prev, ...moreResults]);
       setCurrentPage(nextPage);
     } catch (err) {
