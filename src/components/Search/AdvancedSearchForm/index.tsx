@@ -24,15 +24,21 @@ const AdvancedSearchForm: React.FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <form className={styles["advanced-search-form"]} onSubmit={handleSubmit}>
+    <form
+      className={styles["advanced-search-form"]}
+      onSubmit={handleSubmit}
+      aria-label="Recherche avancée de livres"
+    >
       <div className={styles["form-group"]}>
         <label htmlFor="author">Auteur</label>
         <input
           type="text"
           id="author"
+          name="author"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="e.g. Stephen King"
+          autoComplete="off"
         />
       </div>
 
@@ -41,9 +47,13 @@ const AdvancedSearchForm: React.FC<Props> = ({ onSearch }) => {
         <input
           type="number"
           id="year"
+          name="year"
           value={year}
           onChange={(e) => setYear(e.target.value)}
           placeholder="e.g. 1999"
+          min="0"
+          autoComplete="off"
+          inputMode="numeric"
         />
       </div>
 
@@ -52,9 +62,11 @@ const AdvancedSearchForm: React.FC<Props> = ({ onSearch }) => {
         <input
           type="text"
           id="subject"
+          name="subject"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           placeholder="e.g. fantasy, horror..."
+          autoComplete="off"
         />
       </div>
 

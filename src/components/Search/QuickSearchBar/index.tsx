@@ -9,6 +9,7 @@ import styles from "./QuickSearchBar.module.scss";
 const QuickSearchBar: React.FC = () => {
   const [query, setQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const debouncedQuery = useDebounce(query, 350);
   const { results, loading, error, searchBooks, clearResults } =
     useContext(SearchContext);
@@ -16,7 +17,6 @@ const QuickSearchBar: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
-  // Log sur chaque ouverture/fermeture du dropdown
   useEffect(() => {
     if (debouncedQuery.length >= 3 && results.length > 0) {
       setIsDropdownOpen(true);
@@ -25,7 +25,6 @@ const QuickSearchBar: React.FC = () => {
     }
   }, [debouncedQuery, results]);
 
-  // Log sur chaque appel à searchBooks
   useEffect(() => {
     if (debouncedQuery.length >= 3) {
       searchBooks(debouncedQuery);
@@ -34,7 +33,6 @@ const QuickSearchBar: React.FC = () => {
     }
   }, [debouncedQuery, searchBooks, clearResults]);
 
-  // Ferme le dropdown si on clique ailleurs
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -44,12 +42,15 @@ const QuickSearchBar: React.FC = () => {
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setIsDropdownOpen(false);
+        setFocusedIndex(-1);
       }
     };
 
     const handleEsc = (event: KeyboardEvent | KeyboardEventInit) => {
       if (event.key === "Escape") {
         setIsDropdownOpen(false);
+        setFocusedIndex(-1);
+        inputRef.current?.blur();
       }
     };
 
@@ -66,8 +67,39 @@ const QuickSearchBar: React.FC = () => {
     setQuery("");
     clearResults();
     setIsDropdownOpen(false);
+    setFocusedIndex(-1);
     navigate(`/book/${bookKey.replace("/works/", "")}`);
   };
+
+  // Navigation clavier dans la liste
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!isDropdownOpen || results.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setFocusedIndex((prev) =>
+        prev < results.slice(0, 5).length - 1 ? prev + 1 : 0,
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setFocusedIndex((prev) =>
+        prev > 0 ? prev - 1 : results.slice(0, 5).length - 1,
+      );
+    } else if (e.key === "Enter" && focusedIndex >= 0) {
+      e.preventDefault();
+      handleSelect(results.slice(0, 5)[focusedIndex].key);
+    }
+  };
+
+  useEffect(() => {
+    if (dropdownRef.current && focusedIndex >= 0) {
+      const items = dropdownRef.current.querySelectorAll("li");
+      if (items[focusedIndex]) {
+        (items[focusedIndex] as HTMLElement).scrollIntoView({
+          block: "nearest",
+        });
+      }
+    }
+  }, [focusedIndex, isDropdownOpen]);
 
   return (
     <div className={styles["quick-search"]} aria-label="Recherche rapide">
@@ -76,31 +108,62 @@ const QuickSearchBar: React.FC = () => {
         type="search"
         value={query}
         placeholder="Rechercher un livre..."
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setFocusedIndex(-1);
+        }}
         aria-label="Recherche de livres"
         className={styles["search-input"]}
         id="quick-search-input"
-        name="quick-search-input"
+        name="quick-search"
         autoComplete="off"
+        aria-autocomplete="list"
+        aria-expanded={isDropdownOpen}
+        aria-controls="quick-search-results"
         onFocus={() => {
           if (debouncedQuery.length >= 3 && results.length > 0) {
             setIsDropdownOpen(true);
           }
         }}
+        onKeyDown={handleKeyDown}
       />
 
-      {loading && <div className={styles["loading"]}>Recherche…</div>}
-      {error && <div className={styles["error"]}>{error}</div>}
+      {loading && (
+        <div
+          className={styles["loading"]}
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+        >
+          Recherche…
+        </div>
+      )}
+      {error && (
+        <div className={styles["error"]} role="alert" aria-live="assertive">
+          {error}
+        </div>
+      )}
       {isDropdownOpen && (
-        <ul className={styles["results-list"]} ref={dropdownRef}>
-          {results.slice(0, 5).map((book) => (
+        <ul
+          className={styles["results-list"]}
+          ref={dropdownRef}
+          id="quick-search-results"
+          role="listbox"
+          aria-label="Suggestions de livres"
+        >
+          {results.slice(0, 5).map((book, idx) => (
             <li
               key={book.key}
               className={styles["result-item"]}
-              onClick={() => handleSelect(book.key)}
-              tabIndex={0}
-              onKeyDown={(e) =>
-                e.key === "Enter" ? handleSelect(book.key) : undefined
+              role="option"
+              aria-selected={focusedIndex === idx}
+              tabIndex={-1}
+              onMouseDown={() => handleSelect(book.key)}
+              onMouseEnter={() => setFocusedIndex(idx)}
+              style={
+                focusedIndex === idx
+                  ? { backgroundColor: "#eee", cursor: "pointer" }
+                  : {}
               }
             >
               {book.title}{" "}

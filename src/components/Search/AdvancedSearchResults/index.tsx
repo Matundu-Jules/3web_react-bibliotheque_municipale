@@ -24,11 +24,22 @@ const AdvancedSearchResults: React.FC<Props> = ({ books, loading, error }) => {
     );
 
   return (
-    <div className={styles["results-grid"]}>
-      {books.map((book) => (
-        <BookCard key={book.key} book={book} />
-      ))}
-    </div>
+    <section
+      aria-label="Résultats de la recherche avancée"
+      className={styles["results-section"]}
+    >
+      <div
+        className={styles["results-grid"]}
+        role="list"
+        aria-label="Liste des livres trouvés"
+      >
+        {books.map((book) => (
+          <div key={book.key} role="listitem">
+            <BookCard book={book} />
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

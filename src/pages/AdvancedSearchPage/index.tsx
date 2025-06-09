@@ -55,19 +55,27 @@ const AdvancedSearchPage: React.FC = () => {
   };
 
   return (
-    <section className={styles["advanced-search-page"]}>
+    <main
+      className={styles["advanced-search-page"]}
+      aria-label="Recherche avancée de livres"
+    >
       <h1 className={styles["title"]}>Recherche de livre avancée</h1>
       <AdvancedSearchForm onSearch={handleSearch} />
       <AdvancedSearchResults books={books} loading={loading} error={error} />
 
       {books.length > 0 && !loading && (
         <div className={styles["load-more-wrapper"]}>
-          <button className={styles["load-more-button"]} onClick={loadMore}>
+          <button
+            className={styles["load-more-button"]}
+            onClick={loadMore}
+            aria-label="Charger plus de résultats de recherche"
+            disabled={loading}
+          >
             Charger plus
           </button>
         </div>
       )}
-    </section>
+    </main>
   );
 };
 

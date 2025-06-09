@@ -22,13 +22,17 @@ const BookCard: React.FC<Props> = ({ book }) => {
   };
 
   return (
-    <div
+    <button
+      type="button"
       className={styles["book-card"]}
       onClick={handleClick}
-      role="button"
-      tabIndex={0}
+      aria-label={`Voir le détail du livre : ${book.title}`}
     >
-      <img src={coverUrl} alt={book.title} className={styles["cover"]} />
+      <img
+        src={coverUrl}
+        alt={`Couverture du livre : ${book.title}`}
+        className={styles["cover"]}
+      />
       <div className={styles["info"]}>
         <h3 className={styles["title"]}>{book.title}</h3>
         {book.author_name && (
@@ -38,7 +42,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
           <p className={styles["year"]}>Published: {book.first_publish_year}</p>
         )}
       </div>
-    </div>
+    </button>
   );
 };
 

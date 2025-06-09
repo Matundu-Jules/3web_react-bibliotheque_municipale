@@ -24,7 +24,7 @@ const Header: React.FC = () => {
         <span className={styles["site-title"]}>Bibliothèque municipale</span>
       </a>
 
-      <div className={styles["search-container"]}>
+      <nav className={styles["search-container"]}>
         <QuickSearchBar />
         <button
           type="button"
@@ -34,7 +34,7 @@ const Header: React.FC = () => {
         >
           Recherche avancée
         </button>
-      </div>
+      </nav>
     </header>
   );
 };

@@ -7,10 +7,12 @@ const Loader: React.FC = () => {
   return (
     <div
       className={styles["spinner"]}
-      aria-label="Chargement..."
+      role="status"
       aria-live="polite"
       aria-busy="true"
-    />
+    >
+      <span className={styles["visually-hidden"]}>Chargement…</span>
+    </div>
   );
 };
 

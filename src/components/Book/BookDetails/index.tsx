@@ -16,14 +16,18 @@ interface BookDetailsProps {
 const getCoverUrl = (cover_i?: number, size: "M" | "L" = "L") =>
   cover_i
     ? `https://covers.openlibrary.org/b/id/${cover_i}-${size}.jpg`
-    : "https://dummyimage.com/150x200/cccccc/333333&text=No+Cover"; // Fichier à placer dans /public/assets
+    : "https://dummyimage.com/150x200/cccccc/333333&text=No+Cover";
 
 const BookDetails: React.FC<BookDetailsProps> = ({ book, wikipedia }) => (
-  <section className={styles["book-details"]}>
+  <section
+    className={styles["book-details"]}
+    aria-label={`Détail du livre${book.title ? ` : ${book.title}` : ""}`}
+    role="region"
+  >
     <div className={styles["cover-container"]}>
       <img
         src={getCoverUrl(book.cover_i)}
-        alt={`Couverture de ${book.title}`}
+        alt={`Couverture de ${book.title || "livre sans titre"}`}
         className={styles["cover"]}
         onError={(e) =>
           ((e.target as HTMLImageElement).src =
@@ -33,7 +37,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, wikipedia }) => (
     </div>
 
     <div className={styles["info"]}>
-      <h1 className={styles["title"]}>{book.title || <i>Pas de titre</i>}</h1>
+      <h1 className={styles["title"]}>{book.title || "Titre non renseigné"}</h1>
       <ul className={styles["details-list"]}>
         <li>
           <strong>Auteur(s):</strong>{" "}
@@ -90,7 +94,9 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, wikipedia }) => (
         <li>
           <strong>Dernière modification:</strong>{" "}
           {book.timestamp ? (
-            new Date(book.timestamp).toLocaleString()
+            <time dateTime={book.timestamp}>
+              {new Date(book.timestamp).toLocaleString()}
+            </time>
           ) : (
             <i>Non renseignée</i>
           )}
@@ -104,7 +110,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, wikipedia }) => (
           <ErrorMessage message={`Aucun résumé de Wikipédia trouvé`} />
         )}
         {!wikipedia.loading && wikipedia.summary && (
-          <div className={styles["wiki-summary"]}>
+          <div className={styles["wiki-summary"]} aria-live="polite">
             <strong>Résumé Wikipedia :</strong>
             <p>{wikipedia.summary}</p>
             {wikipedia.url && (

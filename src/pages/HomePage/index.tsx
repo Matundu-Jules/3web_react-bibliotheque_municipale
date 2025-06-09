@@ -28,14 +28,18 @@ const HomePage: React.FC = () => {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <div className={styles["home"]}>
+    <section
+      role="main"
+      className={styles["home"]}
+      aria-label="Accueil — Derniers changements dans la bibliothèque"
+    >
       <h1 className={styles["title"]}>Derniers changements</h1>
       {isMobile ? (
         <RecentChangesList changes={books} />
       ) : (
         <RecentChangesCarousel changes={books.slice(0, 6)} />
       )}
-    </div>
+    </section>
   );
 };
 
