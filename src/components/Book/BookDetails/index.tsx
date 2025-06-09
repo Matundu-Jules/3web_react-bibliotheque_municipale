@@ -88,13 +88,6 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, wikipedia }) => (
           )}
         </li>
         <li>
-          <strong>Type de modification:</strong>{" "}
-          {book.kind || <i>Non renseigné</i>}
-        </li>
-        <li>
-          <strong>Commentaire:</strong> {book.comment || <i>Non renseigné</i>}
-        </li>
-        <li>
           <strong>Dernière modification:</strong>{" "}
           {book.timestamp ? (
             new Date(book.timestamp).toLocaleString()
@@ -102,16 +95,13 @@ const BookDetails: React.FC<BookDetailsProps> = ({ book, wikipedia }) => (
             <i>Non renseignée</i>
           )}
         </li>
-        <li>
-          <strong>Clé (key):</strong> {book.key || <i>Non renseignée</i>}
-        </li>
       </ul>
 
       {/* Section Wikipedia */}
       <div className={styles["wikipedia"]}>
         {wikipedia.loading && <Loader />}
         {wikipedia.error && (
-          <ErrorMessage message={`Wikipedia: ${wikipedia.error}`} />
+          <ErrorMessage message={`Aucun résumé de Wikipédia trouvé`} />
         )}
         {!wikipedia.loading && wikipedia.summary && (
           <div className={styles["wiki-summary"]}>

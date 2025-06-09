@@ -1,6 +1,7 @@
 // src/components/Book/RecentChangesList/RecentChangesList.module.scss
 
 .list {
+  width: 80%;
   list-style: none;
   padding: 0;
   margin: var(--spacing-l) 0;
@@ -22,7 +23,7 @@
 }
 
 .icon {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   line-height: 1.5rem;
   margin-top: 2px;
 }
@@ -30,15 +31,16 @@
 .text {
   flex: 1;
   color: var(--color-text-main);
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-m);
 }
 
 .meta {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-s);
   color: var(--color-text-light);
 }
 
 .link {
+  font-size: var(--font-size-l);
   text-decoration: none;
   color: var(--color-primary);
   transition: color var(--transition-fast);

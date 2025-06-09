@@ -1,11 +1,14 @@
 // ./src/components/Search/QuickSearchBar/QuickSearchBar.module.scss
 
-.quick-search {
-  width: 100%;
-  max-width: 400px;
-  margin: 2rem;
+@use "@styles/_breakpoints.scss" as *;
 
-  @media (min-width: 768px) {
+.quick-search {
+  width: 60%;
+  max-width: 400px;
+  min-width: 20rem;
+  margin: 0;
+
+  @include mediaquery(sm) {
     margin-right: 2rem;
   }
 }
@@ -31,8 +34,6 @@
 
 .results-list {
   position: absolute;
-  // width: 100%;
-  // max-width: 40rem;
   max-height: 300px;
   overflow-y: auto;
   background-color: var(--color-bg);

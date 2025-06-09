@@ -19,7 +19,7 @@
   justify-content: center;
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: var(--font-size-xl);
   cursor: pointer;
   padding: var(--spacing-xs) var(--spacing-s);
   color: var(--color-text-main);
@@ -61,7 +61,7 @@
   box-shadow: var(--shadow-xs);
   min-width: 210px;
   max-width: 220px;
-  height: 340px; // Ajuste selon tes besoins (desktop/tablette)
+  height: 340px;
   min-height: 340px;
   max-height: 340px;
   flex: 0 0 220px;
@@ -127,15 +127,15 @@
 }
 
 .title {
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-xl);
   font-weight: 600;
   margin: var(--spacing-xs) 0 var(--spacing-xs) 0;
   color: var(--color-text-main);
   text-align: center;
-  min-height: 2.2em; // hauteur de 2 lignes min pour garder l'espacement régulier
+  min-height: 2.2em;
   max-height: 2.2em;
   display: -webkit-box;
-  -webkit-line-clamp: 2; // Limite à 2 lignes
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -144,7 +144,7 @@
 }
 
 .author {
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-m);
   color: var(--color-text-light);
   margin-bottom: var(--spacing-xs);
   text-align: center;
@@ -153,13 +153,12 @@
 }
 
 .meta {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-s);
   color: #888;
   text-align: center;
   margin-top: var(--spacing-xs);
 }
 
-// --- TABLETTES & + ---
 @include mediaquery(sm) {
   .slider {
     gap: var(--spacing-l);

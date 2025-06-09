@@ -22,7 +22,7 @@
 
 .cover {
   width: 100%;
-  height: auto;
+  height: 42rem;
   object-fit: cover;
   border-bottom: 1px solid var(--color-border);
 }
@@ -35,7 +35,7 @@
 }
 
 .title {
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-xl);
   font-weight: bold;
   color: var(--color-text-main);
   margin-bottom: var(--spacing-xs);
@@ -43,11 +43,10 @@
 
 .author,
 .year {
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-l);
   color: var(--color-text-light);
 }
 
-/* Animation fade + slide-up */
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
