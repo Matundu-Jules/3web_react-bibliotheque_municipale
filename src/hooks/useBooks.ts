@@ -7,11 +7,57 @@ import type { OpenLibraryBook } from '../types/book';
 interface RecentChange {
   key: string;
   title: string;
-  author_name: string; // Nom réel
+  author_name: string;
   kind: string;
   comment: string;
   timestamp: string;
   cover_i?: number;
+}
+
+export interface BookDetailsResult {
+  book?: OpenLibraryBook;
+  loading: boolean;
+  error?: string;
+}
+
+function mapEditionToOpenLibraryBook(edition: any): OpenLibraryBook {
+  return {
+    key: edition.key,
+    title: edition.title,
+    author_name: edition.by_statement
+      ? [edition.by_statement]
+      : edition.authors
+        ? edition.authors.map((a: any) =>
+            a.name
+              ? a.name
+              : a.key
+                ? a.key.replace('/authors/', '')
+                : 'Auteur inconnu',
+          )
+        : [],
+    first_publish_year:
+      edition.publish_date || (edition.created?.value?.slice(0, 4) ?? ''),
+    cover_i:
+      // 1. covers[0] (prioritaire)
+      edition.covers && edition.covers.length > 0
+        ? edition.covers[0]
+        : // 2. fallback: champ cover_i direct (si jamais il existe déjà)
+          edition.cover_i
+          ? edition.cover_i
+          : undefined,
+    kind: edition.kind,
+    comment: edition.comment,
+    timestamp: edition.last_modified?.value ?? edition.created?.value ?? '',
+    description:
+      typeof edition.description === 'object'
+        ? edition.description.value
+        : edition.description,
+    subjects: edition.subjects,
+    publishers: edition.publishers,
+    number_of_pages: edition.number_of_pages,
+    genres: edition.genres,
+    publish_places: edition.publish_places,
+  };
 }
 
 export function useBooks() {
@@ -68,12 +114,11 @@ export const useRecentChanges = () => {
   useEffect(() => {
     const fetchRecentChanges = async () => {
       try {
-        // 1. Fetch des modifications récentes
         const res = await fetch(
           'https://openlibrary.org/recentchanges.json?limit=20',
         );
         const data = await res.json();
-        // 2. Récupérer tous les identifiants /books/OLxxxxM et meta associées
+
         const candidates = [];
         for (const entry of data) {
           if (!entry.changes) continue;
@@ -88,28 +133,24 @@ export const useRecentChanges = () => {
             timestamp: entry.timestamp ?? '',
           });
         }
-        // 3. Uniques, max 6
+
         const uniqueBooks: Record<string, any> = {};
         for (const c of candidates) {
           if (!uniqueBooks[c.bookKey]) uniqueBooks[c.bookKey] = c;
         }
         const finalBooks = Object.values(uniqueBooks).slice(0, 6);
 
-        // 4. Fetch détails livres & noms d’auteurs
         const bookDetails = await Promise.all(
           finalBooks.map(async (c: any) => {
-            // 4.1 Fetch détail livre
             const res = await fetch(`https://openlibrary.org${c.bookKey}.json`);
             const book = await res.json();
 
-            // 4.2 Récupère le premier auteur (ou "Auteur inconnu")
             let author_name = 'Auteur inconnu';
             if (Array.isArray(book.authors) && book.authors.length > 0) {
               const authorObj = book.authors[0];
               if (authorObj.name) {
                 author_name = authorObj.name;
               } else if (authorObj.key) {
-                // Fetch nom réel via API auteur
                 try {
                   const authorRes = await fetch(
                     `https://openlibrary.org${authorObj.key}.json`,
@@ -147,3 +188,30 @@ export const useRecentChanges = () => {
 
   return { books, loading, error };
 };
+
+export function useBookDetails(id?: string): BookDetailsResult {
+  const [state, setState] = useState<BookDetailsResult>({ loading: false });
+
+  useEffect(() => {
+    if (!id) {
+      setState({ loading: false, error: 'No book ID provided.' });
+      return;
+    }
+    setState({ loading: true });
+    fetch(`https://corsproxy.io/?https://openlibrary.org/books/${id}.json`)
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Book not found.');
+        const data = await res.json();
+        const normalizedBook = mapEditionToOpenLibraryBook(data);
+        setState({ book: normalizedBook, loading: false });
+      })
+      .catch((err) => {
+        setState({
+          loading: false,
+          error: err.message || 'Failed to fetch book details.',
+        });
+      });
+  }, [id]);
+
+  return state;
+}

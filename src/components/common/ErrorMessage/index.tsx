@@ -8,7 +8,11 @@ interface Props {
 }
 
 const ErrorMessage: React.FC<Props> = ({ message }) => {
-  return <div className={styles["error"]}>{message}</div>;
+  return (
+    <div className={styles["error"]} role="alert">
+      {message}
+    </div>
+  );
 };
 
 export default ErrorMessage;

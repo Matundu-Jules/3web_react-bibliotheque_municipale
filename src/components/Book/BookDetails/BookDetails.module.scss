@@ -1,0 +1,123 @@
+// src/components/Book/BookDetails/BookDetails.module.scss
+
+@use "@styles/_breakpoints.scss" as *;
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+  padding: var(--spacing-l) var(--spacing-m);
+  margin: var(--spacing-l) 0;
+  gap: var(--spacing-l);
+  max-width: 100%;
+  width: 100%;
+}
+
+.cover-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-s);
+
+  .cover {
+    width: 120px;
+    height: auto;
+    border-radius: var(--radius-m);
+    background: #eee;
+    box-shadow: var(--shadow-xs);
+    object-fit: cover;
+    aspect-ratio: 3/4;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  width: 100%;
+  color: var(--color-text-main);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-primary);
+}
+
+.details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-m) 0;
+  font-size: var(--font-size-s);
+
+  li {
+    margin-bottom: var(--spacing-xs);
+    strong {
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+    i {
+      color: var(--color-text-light);
+      font-style: italic;
+    }
+  }
+}
+
+.wikipedia {
+  margin-top: var(--spacing-s);
+}
+
+.wiki-summary {
+  margin-bottom: var(--spacing-s);
+  p {
+    margin-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    color: var(--color-text-main);
+  }
+}
+
+.wiki-link {
+  color: var(--color-info);
+  font-weight: 500;
+  text-decoration: underline;
+  margin-top: var(--spacing-xs);
+  display: inline-block;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-hover);
+  }
+}
+
+// ---- Responsive : desktop/tablette ----
+
+@include mediaquery(sm) {
+  .book-details {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-l);
+    max-width: 850px;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl) var(--spacing-l);
+  }
+  .cover-container {
+    min-width: 180px;
+    .cover {
+      width: 180px;
+      min-width: 120px;
+    }
+  }
+  .info {
+    min-width: 220px;
+    max-width: 600px;
+  }
+  .title {
+    font-size: var(--font-size-xxl);
+  }
+}

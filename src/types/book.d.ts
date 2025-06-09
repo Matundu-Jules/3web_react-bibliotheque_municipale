@@ -6,9 +6,15 @@ export interface OpenLibraryBook {
   author_name?: string[];
   first_publish_year?: string;
   cover_i?: number;
-
-  // ✅ Champs spécifiques aux changements récents
   kind?: string;
   comment?: string;
   timestamp?: string;
+
+  // Champs enrichis pour édition/détail
+  description?: string;
+  subjects?: string[];
+  publishers?: string[];
+  number_of_pages?: number;
+  genres?: string[];
+  publish_places?: string[];
 }
