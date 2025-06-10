@@ -4,7 +4,7 @@ import React, { createContext, useState, useCallback } from "react";
 import { useBooks } from "@hooks/useBooks";
 import type { OpenLibraryBook } from "../types/book";
 
-interface SearchContextProps {
+export interface SearchContextProps {
   query: string;
   results: OpenLibraryBook[];
   loading: boolean;
